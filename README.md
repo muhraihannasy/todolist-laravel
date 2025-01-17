@@ -38,8 +38,6 @@ Content-Type: application/json
 
 ### Autentikasi
 
-Jika API memerlukan autentikasi, sertakan header berikut:
-
 ```
 Authorization: Bearer <your-access-token>
 ```
