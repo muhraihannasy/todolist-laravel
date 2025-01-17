@@ -21,7 +21,7 @@ class ChecklistController extends Controller implements HasMiddleware
     public function index()
     {
         try {
-            $data = Checklist::all();
+            $data = Checklist::with('checklistItems')->get();
 
             return response()->json([
                 'success' => true,
@@ -40,7 +40,7 @@ class ChecklistController extends Controller implements HasMiddleware
     public function detail(string $uuid)
     {
         try {
-            $data = Checklist::where('uuid', $uuid)->get()->first();
+            $data = Checklist::where('uuid', $uuid)->with('checklistItems')->get()->first();
 
             return response()->json([
                 'success' => true,
@@ -102,7 +102,7 @@ class ChecklistController extends Controller implements HasMiddleware
                 'sequence' => 'numeric'
             ]);
 
-            $data = Checklist::where('uuid', $uuid)->update($validatedData);
+            Checklist::where('uuid', $uuid)->update($validatedData);
 
             return response()->json([
                 'success' => true,
@@ -117,6 +117,24 @@ class ChecklistController extends Controller implements HasMiddleware
                 "data" => null,
                 'errors' => $e->errors(),
             ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+            ], 500);
+        }
+    }
+
+    public function delete(string $uuid)
+    {
+        try {
+            Checklist::where('uuid', $uuid)->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => "Success delete data",
+            ], status: 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

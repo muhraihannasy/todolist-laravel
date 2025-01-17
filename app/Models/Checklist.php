@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Checklist extends Model
@@ -28,5 +29,10 @@ class Checklist extends Model
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    public function checklistItems(): HasMany
+    {
+        return $this->hasMany(ChecklistItem::class);
     }
 }
