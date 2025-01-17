@@ -44,14 +44,25 @@ class AuthController extends Controller implements HasMiddleware
                 'password' => 'required|string|min:6',
             ]);
 
+            $credentials = [
+                'email' => $validatedData['email'],
+                'password' => $validatedData['password'],
+            ];
+
             $validatedData['password'] = bcrypt($validatedData['password']);
 
             $data = User::create($validatedData);
 
+            $token = Auth::attempt($credentials);
+
             return response()->json([
                 'success' => true,
                 'message' => 'User created successfully',
-                'data' => $data
+                'data' => [
+                    'access_token' => $token,
+                    'token_type' => 'bearer',
+                    'user' => $data,
+                ]
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
