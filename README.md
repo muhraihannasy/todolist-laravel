@@ -36,6 +36,16 @@ Accept: application/json
 Content-Type: application/json
 ```
 
+### Autentikasi
+
+Jika API memerlukan autentikasi, sertakan header berikut:
+
+```
+Authorization: Bearer <your-access-token>
+```
+
+---
+
 ## Endpoint API yang Tersedia
 
 ### 1. Endpoint Autentikasi
@@ -292,12 +302,18 @@ Content-Type: application/json
 ```json
 {
     "success": true,
+    "message": "Success get data",
     "data": [
         {
-            "uuid": "123e4567-e89b-12d3-a456-426614174002",
-            "name": "Checklist Item 1",
-            "status": "incomplete",
-            "checklist_uuid": "123e4567-e89b-12d3-a456-426614174000"
+            "id": 1,
+            "checklist_id": 1,
+            "uuid": "c24b465c-9c8a-46f6-97f7-be38db151cfa",
+            "name": "Belajar Nest JS",
+            "sequence": 0,
+            "is_checked": 0,
+            "created_at": "2025-01-17T10:03:29.000000Z",
+            "updated_at": "2025-01-17T10:03:29.000000Z",
+            "deleted_at": null
         }
     ]
 }
@@ -311,8 +327,8 @@ Content-Type: application/json
 
 ```json
 {
-    "name": "New Checklist Item",
-    "checklist_uuid": "123e4567-e89b-12d3-a456-426614174000"
+    "checklist_id": "1",
+    "name": "Interview Coding"
 }
 ```
 
@@ -321,12 +337,109 @@ Content-Type: application/json
 ```json
 {
     "success": true,
-    "message": "Checklist item created successfully",
+    "message": "Success create data",
     "data": {
-        "uuid": "123e4567-e89b-12d3-a456-426614174003",
-        "name": "New Checklist Item",
-        "status": "incomplete",
-        "checklist_uuid": "123e4567-e89b-12d3-a456-426614174000"
+        "checklist_id": "1",
+        "name": "Interview Coding",
+        "uuid": "66b22fc6-fdcc-4878-9eae-37557ed8287f",
+        "updated_at": "2025-01-17T10:05:52.000000Z",
+        "created_at": "2025-01-17T10:05:52.000000Z",
+        "id": 2
     }
+}
+```
 
+#### c. Memperbarui Checklist Item
+
+**Endpoint**: `POST /api/checklist-items/{uuid}`
+
+**Body Permintaan**:
+
+```json
+{
+    "name": "Belajar Golang",
+    "sequence": 2
+}
+```
+
+**Contoh Respons**:
+
+```json
+{
+    "success": true,
+    "message": "Success create data",
+    "data": {
+        "name": "Belajar Golang",
+        "sequence": 2
+    }
+}
+```
+
+#### c. Memperbarui Status Checklist Item
+
+**Endpoint**: `PATCH /api/checklist-items/{uuid}/change-status`
+
+**Body Permintaan**:
+
+```json
+{
+    "is_checked": true
+}
+```
+
+**Contoh Respons**:
+
+```json
+{
+    "success": true,
+    "message": "Success create data",
+    "data": {
+        "id": 1,
+        "checklist_id": 1,
+        "uuid": "c24b465c-9c8a-46f6-97f7-be38db151cfa",
+        "name": "Belajar Nest JS",
+        "sequence": 0,
+        "is_checked": 1,
+        "created_at": "2025-01-17T10:03:29.000000Z",
+        "updated_at": "2025-01-17T10:16:46.000000Z",
+        "deleted_at": null
+    }
+}
+```
+
+#### d. Mendapatkan Detail Cheklist
+
+**Endpoint**: `GET /api/checklist-items/{uuid}`
+
+**Contoh Respons**:
+
+```json
+{
+    "success": true,
+    "message": "Success get data",
+    "data": {
+        "id": 1,
+        "checklist_id": 1,
+        "uuid": "c24b465c-9c8a-46f6-97f7-be38db151cfa",
+        "name": "Belajar Nest JS",
+        "sequence": 0,
+        "is_checked": 1,
+        "created_at": "2025-01-17T10:03:29.000000Z",
+        "updated_at": "2025-01-17T10:16:46.000000Z",
+        "deleted_at": null
+    }
+}
+```
+
+#### e. Menghapus Cheklist
+
+**Endpoint**: `DELETE /api/checklist-items/{uuid}`
+
+**Contoh Respons**:
+
+```json
+{
+    "success": true,
+    "message": "Success delete data"
+}
 ```
