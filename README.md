@@ -1,4 +1,4 @@
-# Dokumentasi API Laravel + MySQL
+# Dokumentasi Endpoint API Laravel
 
 Ini adalah informasi tentang cara menguji API menggunakan Postman dengan header yang benar serta contoh endpoint.
 
