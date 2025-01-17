@@ -48,21 +48,10 @@ class AuthController extends Controller implements HasMiddleware
 
             $data = User::create($validatedData);
 
-            $token = Auth::attempt([
-                'email' => $data['email'],
-                'password' => $data['password']
-            ]);
-
-            $auth_object = $this->respondWithToken($token);
-
             return response()->json([
                 'success' => true,
                 'message' => 'User created successfully',
-                'data' => [
-                    'access_token' => $auth_object['access_token'],
-                    'expires_in' => $auth_object['expires_in'],
-                    'user' => $data,
-                ]
+                'data' => $data
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
