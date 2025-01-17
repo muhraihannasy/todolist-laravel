@@ -36,16 +36,6 @@ Accept: application/json
 Content-Type: application/json
 ```
 
-### Autentikasi (Opsional)
-
-Jika API memerlukan autentikasi, sertakan header berikut:
-
-```
-Authorization: Bearer <your-access-token>
-```
-
----
-
 ## Endpoint API yang Tersedia
 
 ### 1. Endpoint Autentikasi
