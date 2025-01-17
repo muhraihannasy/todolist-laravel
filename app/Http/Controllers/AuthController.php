@@ -89,7 +89,7 @@ class AuthController extends Controller implements HasMiddleware
     {
         Auth::logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['success' => true, 'message' => 'Successfully logged out']);
     }
 
     public function refresh()
